@@ -10,11 +10,12 @@ const __dirname = path.dirname(__filename);
 
 export default {
     mode: process.env.NODE_ENV,
-    // entry: './client/index.js', 
-    entry: './server/server.ts',
+    entry: './client/index.js', 
+    // entry: './server/server.ts',
     devtool: 'inline-source-map',
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'build/'),
+        publicPath: '/',
         filename: 'bundle.js',
     },
     devServer: {
@@ -45,7 +46,10 @@ export default {
                   ['@babel/preset-react',{ targets: "defaults" }]
                 ]
               }
-            }
+            },
+          resolve: {
+            fullySpecified: false,
+          }
         },
         {
           test: /.(css|scss)$/,
