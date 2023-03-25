@@ -7,6 +7,8 @@ const app = express();
 
 import bookRouter from './routes/bookRoute';
 
+import bodyParser from 'body-parser';
+
 import {fileURLToPath} from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,8 +22,10 @@ import { Request, Response, NextFunction} from 'express';
 * Automatically parse urlencoded body content and form data from incoming requests and place it
 * in req.body
 */
+
 app.use(express.json());
-app.use(express.urlencoded());
+// app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true}));
 
 // const leaderList = [
 //   {name: 'Anna', id: 'a0'},
@@ -55,7 +59,7 @@ app.use((_req: Request, res: Response): unknown => res.status(404).send('This is
 // global error handler
 app.use((err: unknown, _req: Request, res: Response, next: NextFunction): unknown => {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
+    log: `Express error handler caught unknown middleware error ${err}`,
     status: 500,
     message: { err: 'An error occurred' },
   };

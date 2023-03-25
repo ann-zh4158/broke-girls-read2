@@ -12,8 +12,7 @@ const __dirname = path.dirname(__filename);
 
 export default {
     mode: process.env.NODE_ENV,
-    entry: './client/index.js', 
-    // entry: './server/server.ts',
+    entry: './client/index.js',  // might be good to also change main in package.json
     devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, 'build/'),
@@ -32,7 +31,7 @@ export default {
             publicPath: '/build',
         },
         proxy: {
-          '/api': 'http://localhost:3000'
+          '/books': 'http://localhost:3000'
         },
     },
     module: {

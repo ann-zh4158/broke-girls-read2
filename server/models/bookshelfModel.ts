@@ -1,4 +1,10 @@
-import { Pool } from 'pg';
+import pkg from 'pg';
+import { QueryResult } from 'pg';
+const { Pool } = pkg;
+
+// import pg types
+import { builtins, getTypeParser } from 'pg-types';
+// console.log({ builtins, getTypeParser });
 
 const PG_URI = 'postgres://nhsptzfu:Y4wop8yC3EOkr_Eg6sL3QR6R0htjsfsl@mahmud.db.elephantsql.com/nhsptzfu';
 
@@ -7,9 +13,11 @@ const pool = new Pool({
     connectionString: PG_URI
   });
 
-export default {
-    query: (text: string, params: unknown[], callback: function): unknown => {
+const db = {
+    query: async (text: string, params: unknown[]): Promise<QueryResult> => {
         console.log('executed query', text);
-        return pool.query(text, params, callback);
+        return await pool.query(text, params);
       }
 };
+
+export default db;
