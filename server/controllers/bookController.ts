@@ -1,12 +1,3 @@
-// set up some dummy data to test backend
-const dummyData = {
-    title: "The Devotion of Suspect X",
-    author: "Keigo Higashino",
-    kindle_url: "https://www.amazon.com/Devotion-Suspect-Detective-Galileo-Novel-ebook/dp/B0044781ZQ/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=&sr=", 
-    kobo_url: "https://www.kobo.com/us/en/ebook/the-devotion-of-suspect-x-1",
-    nook_url: "https://www.barnesandnoble.com/w/devotion-of-suspect-x-keigo-higashino/1100337740?ean=9781429992312"
-};
-
 // import types
 import { Request, Response, NextFunction} from 'express';
 import db from '../models/bookshelfModel';
@@ -14,11 +5,18 @@ import db from '../models/bookshelfModel';
 const bookController = {
 
     // get all books (TEST MODE)
-    getBooks: (_req:Request, res:Response, next:NextFunction):unknown => {
-        // console.log('inside getBooks');
-        res.locals.flag = 'success';
-        res.locals.bookInfo = dummyData; 
-        return next(); 
+    getBooks: async (_req:Request, res:Response, next:NextFunction):Promise<unknown> => {
+
+        const sqlStr = `SELECT * FROM bookshelf`;
+
+        try {
+            const queryRes = await db.query(sqlStr, []);
+            res.locals.bookInfo = queryRes.rows;
+            return next();
+        } catch (err) {
+            return next({log: 'Error in bookController.getBooks', message: err}); 
+        }
+
     },
 
     addBooks: async (req:Request, res:Response, next:NextFunction):Promise<unknown> => {
@@ -26,10 +24,7 @@ const bookController = {
         // user inputs inside req.body
         // req body should match properties on bookshelf model in db
 
-        console.log('inside addBook');
-
         const { title, author, nook_url, kindle_url, kobo_url } = req.body;
-        console.log('req body is: ', req.body);
         const bookEntry = [title, author, nook_url, kindle_url, kobo_url];
         try {
             const sqlStr = `INSERT INTO bookshelf
@@ -38,12 +33,82 @@ const bookController = {
             RETURNING *;`;
             const queryRes = await db.query(sqlStr, bookEntry);
             res.locals.newBook = queryRes.rows[0];
-            console.log('queryRes is: ',queryRes);
             return next();
         } catch (err) {
-            next({log: 'Error in bookController.addBook', message: err});
-            return res.status(400).end();
+            return next({log: 'Error in bookController.addBooks', message: err});
         }
+    },
+
+    updateBooks: async (req:Request, res:Response, next:NextFunction):Promise<unknown> => {
+        
+        //you're only allowed to update the links (in case they break at some point in time) 
+        // allowed to only change one link at a time
+        const { title, nook_url, kindle_url, kobo_url } = req.body; 
+
+        // console.log('put req body looks like this: ', req.body);
+
+        const editBook = [title]; 
+        let sqlStr = '';
+        let newURL = false;  // default value
+        try {
+            // both null and undefined are falsy in TS / JS
+            // JSON'd req.body stores these properties as strings
+            if (nook_url !== 'undefined') {
+
+                editBook.push(nook_url);
+                sqlStr = `UPDATE bookshelf
+                SET nook_url = $2
+                WHERE title = $1;`;
+                newURL = true; 
+
+            } else if (kobo_url !== 'undefined') {
+
+                editBook.push(kobo_url);
+                sqlStr = `UPDATE bookshelf
+                SET kobo_url = $2
+                WHERE title = $1;`;
+                newURL = true; 
+
+            } else if (kindle_url !== 'undefined') {
+
+                editBook.push(kindle_url);
+                sqlStr = `UPDATE bookshelf
+                SET kindle_url = $2
+                WHERE title = $1;`;
+                newURL = true; 
+
+            } else {
+                // invalid request body 
+                res.locals.edited = null; 
+            }
+
+            if (newURL) {
+                const queryRes = await db.query(sqlStr, editBook);
+                res.locals.edited = queryRes.rows[0];
+            }    
+            return next();
+
+        } catch (err) {
+            return next({log: 'Error in bookController.updateBooks', message: err});
+        }
+    }, 
+
+    deleteBooks: async (req:Request, res:Response, next:NextFunction):Promise<unknown> => {
+
+        // user chooses to "unwatch" existing entry --> delete row from table 
+        const { title, author } = req.body;  // identify what to be delted thru title + author
+        const toBeDeleted = [title, author];
+        const sqlStr = `DELETE FROM bookshelf
+        WHERE title = $1
+            AND author = $2;`;
+        try {
+            const queryRes = await db.query(sqlStr, toBeDeleted);
+            res.locals.deleted = queryRes.rows[0];
+            return next();
+        } catch (err) {
+            return next({log: 'Error in bookController.deleteBooks', message: err});            
+        }
+
     },
 
 };

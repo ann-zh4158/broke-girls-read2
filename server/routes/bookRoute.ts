@@ -5,38 +5,56 @@ import bookController from '../controllers/bookController';
 
 const bookRouter = express.Router(); 
 
-bookRouter.get('/', bookController.getBooks, (_req: Request, res:Response):void => {
+bookRouter.get('/', bookController.getBooks, (_req: Request, res:Response, next:NextFunction):void => {
+    
     // console.log(bookRouter.stack);
-    console.log('getting');
-    res.status(200).json(res.locals.bookInfo);
+
+    try {
+        res.status(200).json(res.locals.bookInfo);
+    } catch (err) {
+        next({log: 'error in get route', message: err});   // FOR DEV ONLY         
+    }
 }
 );
 
-bookRouter.post('/', (req: Request, res:Response, next:NextFunction):void => {
-    // bookController.addBook,
-    // res.status(200).json(res.locals.newBook);
-    console.log('1st line post');
+bookRouter.post('/', bookController.addBooks, (_req: Request, res:Response, next:NextFunction):void => {
+
     try {
-        console.log('posting req body: ', req.body);
-        res.status(200).json(req.body);
+        res.status(200).json(res.locals.newBook);
     } catch (err) {
-        next({log: 'error in post route', message: err});
-        
+        next({log: 'error in post route', message: err});   // FOR DEV ONLY 
     }
 
 }
 );
 
-// POST http://localhost:8080/books/
-// content-type: application/json
+bookRouter.put('/', bookController.updateBooks, (_req: Request, res:Response, next:NextFunction):void => {
 
-// {
-//     "title": "The Devotion of Suspect X",
-//     "author": "Keigo Higashino",
-//     "kindle_url": "https://www.amazon.com/Devotion-Suspect-Detective-Galileo-Novel-ebook/dp/B0044781ZQ/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=&sr=", 
-//     "kobo_url": "https://www.kobo.com/us/en/ebook/the-devotion-of-suspect-x-1",
-//     "nook_url": "https://www.barnesandnoble.com/w/devotion-of-suspect-x-keigo-higashino/1100337740?ean=9781429992312",   
-// }
+    try {
+        // if res.locals.editedURL is NOT empty --> status = 200
+        if (!res.locals.edited) {
+            res.status(200).json(res.locals.edited);
+        } else {
+            res.status(400).end();
+        }
+        
+    } catch (err) {
+        next({log: 'error in put route', message: err});  // FOR DEV ONLY 
+    }
+
+}
+);
+
+bookRouter.delete('/', bookController.deleteBooks, (_req: Request, res:Response, next:NextFunction):void => {
+
+    try {
+        res.status(200).json(res.locals.deleted);
+    } catch (err) {
+        next({log: 'error in delete route', message: err});  // FOR DEV ONLY 
+    }
+
+}
+);
 
 
 export default bookRouter; 

@@ -7,8 +7,6 @@ const app = express();
 
 import bookRouter from './routes/bookRoute';
 
-import bodyParser from 'body-parser';
-
 import {fileURLToPath} from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,7 +22,6 @@ import { Request, Response, NextFunction} from 'express';
 */
 
 app.use(express.json());
-// app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
 
 // const leaderList = [
