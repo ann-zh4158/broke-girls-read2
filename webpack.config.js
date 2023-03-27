@@ -31,6 +31,7 @@ export default {
             publicPath: '/build',
         },
         proxy: {
+          '/price': 'http://localhost:3000',
           '/books': 'http://localhost:3000'
         },
     },

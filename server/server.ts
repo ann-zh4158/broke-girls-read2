@@ -5,7 +5,8 @@ import express from 'express';
 import path from 'path';
 const app = express();
 
-import bookRouter from './routes/bookRoute';
+import bookRouter from './routes/bookRouter';
+import priceRouter from './routes/priceRouter';
 
 import {fileURLToPath} from 'url';
 const __filename = fileURLToPath(import.meta.url);
@@ -47,14 +48,21 @@ app.use(express.urlencoded({extended: true}));
 
 // mount specific sub-routes
 app.use('/books', bookRouter);
+app.use('/price', priceRouter);
 
-// route handler to interact with main app 
+// // route handler to interact with main app 
+// app.get('/home', bookController.getBooks, (_req:Request, res:Response):void => {
+
+//   // gets ALL entries from database
+//   res.status(200).json(res.locals.bookInfo);
+
+// });
 
 // catch-all route handler 
 app.use((_req: Request, res: Response): unknown => res.status(404).send('This is not the page you\'re looking for...'));
 
 // global error handler
-app.use((err: unknown, _req: Request, res: Response, next: NextFunction): unknown => {
+app.use((err: unknown, _req: Request, res: Response, _next: NextFunction): unknown => {
   const defaultErr = {
     log: `Express error handler caught unknown middleware error ${err}`,
     status: 500,

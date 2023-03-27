@@ -4,7 +4,7 @@ import db from '../models/bookshelfModel';
 
 const bookController = {
 
-    // get all books (TEST MODE)
+    // get ALL books
     getBooks: async (_req:Request, res:Response, next:NextFunction):Promise<unknown> => {
 
         const sqlStr = `SELECT * FROM bookshelf`;
