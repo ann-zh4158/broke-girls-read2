@@ -1,5 +1,5 @@
-// const express = require('express');
-// const path = require('path');
+import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
+import scheduleScrape from './background';
 
 import express from 'express';
 import path from 'path';
@@ -73,7 +73,26 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction): unkno
   return res.status(errorObj.status).json(errorObj.message);
 });
 
+// declare new instance of scheduler class
+const scheduler = new ToadScheduler(); 
+
+// schedule task 
+const job = new SimpleIntervalJob({hours: 1, runImmediately: true}, 
+    scheduleScrape, {id: 'id_1', preventOverrun: true});
+
 // start server
 app.listen(PORT, ():void => {
-  console.log(`Server listening on port: ${PORT}...`);
+  console.log(`Server listening on port: ${PORT}... \n`);
+  console.log('starting scheduled task ... \n');
+  scheduler.addSimpleIntervalJob(job);
+  console.log(scheduler.getById('id_1').getStatus());
+
 }); //listens on port 3000 -> http://localhost:3000/
+
+// stop task on killing server
+process.on('SIGINT', function() {
+    scheduler.stop();
+    console.log('server has been killed... stopping task \n');
+    console.log(scheduler.getById('id_1').getStatus());
+    process.exit(0);
+});

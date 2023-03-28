@@ -32,7 +32,7 @@ const bookController = {
             VALUES ($1, $2, $3, $4, $5)
             RETURNING *;`;
             const queryRes = await db.query(sqlStr, bookEntry);
-            res.locals.newBook = queryRes.rows[0];
+            res.locals.newBook = queryRes.rows[0]; // console.log('new book added: ',res.locals.newBook);
             return next();
         } catch (err) {
             return next({log: 'Error in bookController.addBooks', message: err});

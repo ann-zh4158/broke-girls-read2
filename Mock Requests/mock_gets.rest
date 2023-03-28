@@ -52,3 +52,5 @@ content-type: application/json
     "author": "Keigo Higashino"
 }
 
+#####
+GET http://localhost:8080/price/1

@@ -16,8 +16,9 @@ async function scrapePrice(targetURL:string, urlFlag:string):Promise<string> {
 
         const { data:htmlPage } = await axios.get(targetURL);     
         const $ = await cheerio.load(htmlPage);
+        let priceTag = $('div');  // some placeholder (finds all divs on page)
 
-        let priceTag:object;  
+        // let priceTag = {};  
         switch (urlFlag) {
             case 'kobo':
                 priceTag = $('[data-price*="$"]');  // get all elements with attribute "data-price" containing value "$"
@@ -42,6 +43,7 @@ async function scrapePrice(targetURL:string, urlFlag:string):Promise<string> {
 
     } catch (err) {
         console.error(err);
+        return `there is an error ${err}`;
     }
 
 
