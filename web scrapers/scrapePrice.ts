@@ -32,7 +32,7 @@ async function scrapePrice(targetURL:string, urlFlag:string):Promise<string> {
                 priceTag = $('[class*="selected-format-chiclet"] span.format-price'); 
                 break;
 
-        }
+        }    
         
         // extra checks to ensure uniqueness of selected element
         if (priceTag.length > 1) {

@@ -41,8 +41,8 @@ app.use(express.urlencoded({extended: true}));
 //   // statically serve everything in the build folder on the route '/build'
 //   app.use('/build', express.static(path.join(__dirname, '../build')));
 //   // serve index.html on the route '/'
-//   app.get('/', (_req: Request, res: Response) => {
-//     return res.status(200).sendFile(path.join(__dirname, '../index.html'));
+//   app.get('/', (_req: Request, res: Response):void => {
+//     res.status(200).sendFile(path.join(__dirname, '../index.html'));
 //   });
 // }
 
@@ -76,23 +76,24 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction): unkno
 // declare new instance of scheduler class
 const scheduler = new ToadScheduler(); 
 
-// schedule task 
+// create task 
 const job = new SimpleIntervalJob({hours: 1, runImmediately: true}, 
     scheduleScrape, {id: 'id_1', preventOverrun: true});
+    
+// // start scheduled task ---> nodemon reloading honestly creates some issues   
+// console.log('starting scheduled task ... \n');
+// scheduler.addSimpleIntervalJob(job);
+// console.log(scheduler.getById('id_1').getStatus());       
 
-// start server
+// listen for active server port
 app.listen(PORT, ():void => {
   console.log(`Server listening on port: ${PORT}... \n`);
-  console.log('starting scheduled task ... \n');
-  scheduler.addSimpleIntervalJob(job);
-  console.log(scheduler.getById('id_1').getStatus());
-
-}); //listens on port 3000 -> http://localhost:3000/
-
-// stop task on killing server
-process.on('SIGINT', function() {
-    scheduler.stop();
-    console.log('server has been killed... stopping task \n');
-    console.log(scheduler.getById('id_1').getStatus());
-    process.exit(0);
-});
+}); //listens on port 3000 -> http://localhost:3000/ 
+    
+// // stop task on killing server
+// process.on('SIGINT', function() {
+//     scheduler.stop();
+//     console.log('server has been killed... stopping task \n');
+//     console.log(scheduler.getById('id_1').getStatus());
+//     process.exit(0);
+// });

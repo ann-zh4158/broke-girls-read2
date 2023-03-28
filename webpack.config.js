@@ -56,7 +56,7 @@ export default {
         {
           test: /.(css|scss)$/,
           exclude: /node_modules/,
-          use: ['style-loader', 'css-loader','sass-loader'],
+          use: ['style-loader', 'css-loader'],
         },
         {
             test: /\.(ts|tsx)$/,

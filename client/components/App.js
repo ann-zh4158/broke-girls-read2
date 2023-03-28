@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import BookCard from './BookCard';
 
-// just a dummy front end for testing webpack
+// top-most application containing everything
 
-class App extends Component {
-    render() {
-        return (
-            <div>
-            <div>Leaders:</div>
-            <ul>me</ul>
-          </div>
-          );
-    }
+function App() {
+    return (
+      <div className="App">
+        <BookCard />
+      </div>
+      );
 }
 
 export default App;

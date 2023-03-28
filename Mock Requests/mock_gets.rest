@@ -54,3 +54,29 @@ content-type: application/json
 
 #####
 GET http://localhost:8080/price/1
+
+####
+POST http://localhost:8080/books/
+content-type: application/json
+
+{
+    "title": "The Murder of Roger Ackroyd",
+    "author": "Agatha Christie",
+    "kindle_url": "https://www.amazon.com/Murder-Roger-Ackroyd-Agatha-Christie-ebook/dp/B0BVL3WLYZ/ref=sr_1_2_sspa?crid=3RRCS9IFH1FRV&keywords=the+murder+of+roger+ackroyd&qid=1680034460&s=digital-text&sprefix=the+murder+of+roger+ackoyrd%2Cdigital-text%2C167&sr=1-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyVzVCMjY1M1I2RTI3JmVuY3J5cHRlZElkPUEwMDU5MTM3NTc3NDFXVkY2VDM5JmVuY3J5cHRlZEFkSWQ9QTA2MDQzNzgzNjhGVzIzS1BXNlYyJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==", 
+    "kobo_url": "https://www.kobo.com/us/en/ebook/the-murder-of-roger-ackroyd",
+    "nook_url": "https://www.barnesandnoble.com/w/murder-of-roger-ackroyd-agatha-christie/1013985735?ean=9789895624980"   
+}
+
+######
+GET http://localhost:8080/price/2
+
+######
+PUT http://localhost:8080/books/
+content-type: application/json
+
+{
+    "title": "The Murder of Roger Ackroyd",
+    "kindle_url": "https://www.amazon.com/Murder-Ackroyd-Warbler-Classics-Annotated-ebook/dp/B09PKR7BPQ/ref=sr_1_6?crid=1C6DJ0Z6JO0LT&keywords=the+murder+of+roger+ackroyd&qid=1680036624&s=digital-text&sprefix=the+murder+of+roger+ackroyd%2Cdigital-text%2C143&sr=1-6", 
+    "nook_url": "undefined", 
+    "kobo_url": "undefined"
+}
