@@ -8,13 +8,13 @@ body {
     color:rgb(42, 238, 172);
     text-align: center;
 }
-h1 {
-    color: #78cce2;
-}
 * {
     margin: 0;
     padding: 1;
     box-sizing: border-box;
     font-family: "Roboto";
-    color: #116175;
+    color: #1e7681;
+}
+h1 {
+    color: #78cce2;
 }

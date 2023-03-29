@@ -1,5 +1,5 @@
 import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler';
-import scheduleScrape from './background';
+import scheduleScrape from './scheduleScrape';
 
 import express from 'express';
 import path from 'path';
