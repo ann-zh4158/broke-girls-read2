@@ -25,26 +25,15 @@ import { Request, Response, NextFunction} from 'express';
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-// const leaderList = [
-//   {name: 'Anna', id: 'a0'},
-//   {name: 'Ben', id: 'b0'},
-//   {name: 'Clara', id: 'c0'},
-//   {name: 'David', id: 'd0'},
-// ];
-
-// app.get('/api/leaders', (_req: Request, res: Response) => {
-//   return res.status(200).send(leaderList);
-// });
-
 // serve production mode static files
-// if(process.env.NODE_ENV === 'production') {
-//   // statically serve everything in the build folder on the route '/build'
-//   app.use('/build', express.static(path.join(__dirname, '../build')));
-//   // serve index.html on the route '/'
-//   app.get('/', (_req: Request, res: Response):void => {
-//     res.status(200).sendFile(path.join(__dirname, '../index.html'));
-//   });
-// }
+if(process.env.NODE_ENV === 'production') {
+  // statically serve everything in the build folder on the route '/build'
+  app.use('/build', express.static(path.join(__dirname, '../build')));
+  // serve index.html on the route '/'
+  app.get('/', (_req: Request, res: Response):void => {
+    res.status(200).sendFile(path.join(__dirname, '../index.html'));
+  });
+}
 
 // mount specific sub-routes
 app.use('/books', bookRouter);

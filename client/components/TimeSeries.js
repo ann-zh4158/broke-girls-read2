@@ -1,1 +1,0 @@
-// displays time series using ChartJS

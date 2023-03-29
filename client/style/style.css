@@ -1,16 +1,20 @@
 body {
-    background-color:#ffffff;
+    background-color:#6d4f43;
     font-family: 'Michroma', sans-serif;
+    background-image: url("https://www.tcd.ie/identity/assets/images/virtual-backgrounds/trinity-virtual-background-10.jpg");
 }
-
+.loading {
+    font-family: 'Michroma', sans-serif;
+    color:rgb(42, 238, 172);
+    text-align: center;
+}
 h1 {
     color: #78cce2;
 }
 * {
     margin: 0;
-    padding: 0;
+    padding: 1;
     box-sizing: border-box;
     font-family: "Roboto";
-    color: #78cce2;
+    color: #116175;
 }
-

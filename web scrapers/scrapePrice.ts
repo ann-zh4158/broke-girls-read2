@@ -1,8 +1,7 @@
-// make web scraper helper function here 
+// scrapes website for price
 
 import * as cheerio from 'cheerio';
 import axios from 'axios';
-// import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
 
 async function scrapePrice(targetURL:string, urlFlag:string):Promise<string> {
     // input = url, flag [strings] 
@@ -43,7 +42,7 @@ async function scrapePrice(targetURL:string, urlFlag:string):Promise<string> {
 
     } catch (err) {
         console.error(err);
-        return `there is an error ${err}`;
+        return `there is an error in price scraper: ${err}`;
     }
 
 

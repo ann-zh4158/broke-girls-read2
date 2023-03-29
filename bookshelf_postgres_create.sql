@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS public.bookshelf (
     "nook_url" VARCHAR NOT NULL,
     "kobo_url" VARCHAR NOT NULL,
     "kindle_url" VARCHAR NOT NULL,
+    "img" VARCHAR NOT NULL,
     UNIQUE("title"),
 	  CONSTRAINT "bookshelf_pk" PRIMARY KEY ("book_id")
 ) WITH (

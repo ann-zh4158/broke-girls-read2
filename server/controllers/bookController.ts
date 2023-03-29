@@ -1,6 +1,7 @@
 // import types
 import { Request, Response, NextFunction} from 'express';
 import db from '../models/bookshelfModel';
+import scrapeImg from '../../web scrapers/scrapeImg';
 
 const bookController = {
 
@@ -27,13 +28,20 @@ const bookController = {
         const { title, author, nook_url, kindle_url, kobo_url } = req.body;
         const bookEntry = [title, author, nook_url, kindle_url, kobo_url];
         try {
+            // first scrape KOBO URL for cover image of new book
+                // return that img src as a link 
+                // push field to end of bookEntry array --> THEN post to database
+            const img_src = await scrapeImg(kobo_url);    
+            bookEntry.push(img_src);
+
             const sqlStr = `INSERT INTO bookshelf
-            (title, author, nook_url, kindle_url, kobo_url)
-            VALUES ($1, $2, $3, $4, $5)
+            (title, author, nook_url, kindle_url, kobo_url, img)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *;`;
             const queryRes = await db.query(sqlStr, bookEntry);
             res.locals.newBook = queryRes.rows[0]; // console.log('new book added: ',res.locals.newBook);
             return next();
+
         } catch (err) {
             return next({log: 'Error in bookController.addBooks', message: err});
         }
@@ -78,7 +86,7 @@ const bookController = {
                 newURL = true; 
 
             } else {
-                // invalid request body 
+                // invalid request body --> assumed no change
                 res.locals.edited = null; 
             }
 
