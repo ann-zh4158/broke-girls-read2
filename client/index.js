@@ -1,7 +1,8 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { render } from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './components/App';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 // uncomment so that webpack can bundle styles
 import styles from './style/style.css';
@@ -9,10 +10,13 @@ import styles from './style/style.css';
 // use react-query across entire application
 const queryClient = new QueryClient(); 
 
-const root = createRoot(document.getElementById('root'));
+const root = document.getElementById('root');
 
-root.render(
+render(
   <QueryClientProvider client={queryClient}>
-    <App />
-  </QueryClientProvider>
+    <Router>
+      <App />
+    </Router>
+  </QueryClientProvider>,
+  root
 );

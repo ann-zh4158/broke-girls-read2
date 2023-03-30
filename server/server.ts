@@ -17,11 +17,6 @@ const PORT = 3000;
 // import types
 import { Request, Response, NextFunction} from 'express';
 
-/**
-* Automatically parse urlencoded body content and form data from incoming requests and place it
-* in req.body
-*/
-
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -74,7 +69,7 @@ const job = new SimpleIntervalJob({hours: 1, runImmediately: true},
 // scheduler.addSimpleIntervalJob(job);
 // console.log(scheduler.getById('id_1').getStatus());       
 
-// listen for active server port
+// listen for active server port 
 app.listen(PORT, ():void => {
   console.log(`Server listening on port: ${PORT}... \n`);
 }); //listens on port 3000 -> http://localhost:3000/ 
@@ -84,5 +79,5 @@ app.listen(PORT, ():void => {
 //     scheduler.stop();
 //     console.log('server has been killed... stopping task \n');
 //     console.log(scheduler.getById('id_1').getStatus());
-//     process.exit(0);
+//     process.exit(0);    
 // });

@@ -61,7 +61,7 @@ const bookController = {
         try {
             // both null and undefined are falsy in TS / JS
             // JSON'd req.body stores these properties as strings
-            if (nook_url !== 'undefined') {
+            if (nook_url !== 'undefined' && nook_url !== '') {
 
                 editBook.push(nook_url);
                 sqlStr = `UPDATE bookshelf
@@ -69,7 +69,7 @@ const bookController = {
                 WHERE title = $1;`;
                 newURL = true; 
 
-            } else if (kobo_url !== 'undefined') {
+            } else if (kobo_url !== 'undefined' && kobo_url !== '') {
 
                 editBook.push(kobo_url);
                 sqlStr = `UPDATE bookshelf
@@ -77,7 +77,7 @@ const bookController = {
                 WHERE title = $1;`;
                 newURL = true; 
 
-            } else if (kindle_url !== 'undefined') {
+            } else if (kindle_url !== 'undefined' && kindle_url !== '') {
 
                 editBook.push(kindle_url);
                 sqlStr = `UPDATE bookshelf
@@ -104,11 +104,10 @@ const bookController = {
     deleteBooks: async (req:Request, res:Response, next:NextFunction):Promise<unknown> => {
 
         // user chooses to "unwatch" existing entry --> delete row from table 
-        const { title, author } = req.body;  // identify what to be delted thru title + author
-        const toBeDeleted = [title, author];
+        const { id } = req.body;  // identify what to be delted thru title + author
+        const toBeDeleted = [id];
         const sqlStr = `DELETE FROM bookshelf
-        WHERE title = $1
-            AND author = $2;`;
+        WHERE book_id = $1;`;
         try {
             const queryRes = await db.query(sqlStr, toBeDeleted);
             res.locals.deleted = queryRes.rows[0];

@@ -8,6 +8,9 @@ body {
     color:rgb(42, 238, 172);
     text-align: center;
 }
+.forms{
+    text-align: center;
+}
 * {
     margin: 0;
     padding: 1;

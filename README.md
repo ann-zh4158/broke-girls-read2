@@ -1,5 +1,5 @@
 # broke-girls-read2
-solo project: e-Book price tracking application
+solo project: e-Book price-tracking application
 
 Core Tools Highlight: 
 
@@ -9,7 +9,7 @@ Front-End:
     3. Libraries
         a. React 
         b. React-Query
-        c. MUI
+        c. Material UI
         d. Chart.js
         e. Axios
 
