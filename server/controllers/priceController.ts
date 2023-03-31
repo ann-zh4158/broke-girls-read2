@@ -18,18 +18,18 @@ const priceController = {
             FROM kindle 
             WHERE kindle_id = $1;`;
     
-            const kindleHist = await db.query(sqlStr, [id]);
+            // const kindleHist = await db.query(sqlStr, [id]);
     
-            sqlStr = `SELECT time, price 
-            FROM nook 
-            WHERE nook_id = $1;`;
+            // sqlStr = `SELECT time, price 
+            // FROM nook 
+            // WHERE nook_id = $1;`;
     
             const nookHist = await db.query(sqlStr, [id]);  
             
             // save all time series data into a struct inside field priceHistory in res.locals
             res.locals.priceHistory = {
                 kobo: koboHist.rows,
-                kindle: kindleHist.rows,
+                // kindle: kindleHist.rows,
                 nook: nookHist.rows
             };
 

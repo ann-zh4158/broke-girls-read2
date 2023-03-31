@@ -1,9 +1,9 @@
-// scrapes website for price
+// scrapes the web for product prices
 
 import * as cheerio from 'cheerio';
 import axios from 'axios';
 
-async function scrapePrice(targetURL:string, urlFlag:string):Promise<string> {
+async function scrapePrice(targetURL:string, urlFlag:string, proxObj:object):Promise<string> {
     // input = url, flag [strings] 
         // output val (wrapped in promise) = price (in USD) of the item on the URL [string]
             // async funcs --> always return a promise --> correct type: Promse<string>
@@ -12,8 +12,7 @@ async function scrapePrice(targetURL:string, urlFlag:string):Promise<string> {
     // a flag to indicate which eBook store URL is being parsed 
 
     try {
-
-        const { data:htmlPage } = await axios.get(targetURL);     
+        const { data:htmlPage } = await axios.get(targetURL, proxObj);     
         const $ = await cheerio.load(htmlPage);
         let priceTag = $('div');  // some placeholder (finds all divs on page)
 

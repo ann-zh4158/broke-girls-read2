@@ -47,7 +47,7 @@ const BookCard = ({ id, author, title, img, kindle, kobo, nook }) => {
             <Card sx={{display: 'flex'}}> 
             <CardMedia
                 component="img"
-                sx={{ width: 162 }}
+                sx={{ width: 162, height: 250 }}
                 image={`https:${img}`}
                 alt="cover-image-book"
             />

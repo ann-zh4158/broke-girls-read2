@@ -17,7 +17,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 function EditForm() {
 
     const { state } = useLocation();
-    console.log(state);
+    // console.log(state);
     const [putBody, setPut] = useState(state);
 
     const navigate = useNavigate();

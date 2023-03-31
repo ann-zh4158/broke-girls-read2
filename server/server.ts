@@ -61,7 +61,7 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction): unkno
 const scheduler = new ToadScheduler(); 
 
 // create task 
-const job = new SimpleIntervalJob({hours: 1, runImmediately: true}, 
+const job = new SimpleIntervalJob({minutes: 30, runImmediately: true}, 
     scheduleScrape, {id: 'id_1', preventOverrun: true});
     
 // // start scheduled task ---> nodemon reloading honestly creates some issues   
@@ -81,3 +81,4 @@ app.listen(PORT, ():void => {
 //     console.log(scheduler.getById('id_1').getStatus());
 //     process.exit(0);    
 // });
+

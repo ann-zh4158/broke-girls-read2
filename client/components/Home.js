@@ -33,11 +33,11 @@ function Home() {
             <Container> 
               <Box sx={{alignItems: 'center', textAlign: 'center'}}>
                 <Button size="large" variants="contained" sx={{ color: 'red'}} onClick={onAdd}>
-                    Click here to add more books!
+                    Click here to add more titles!
                 </Button>
               </Box>
             </Container>
-          <Grid container spacing={5}>
+          <Grid container spacing={5} sx={{alignItems: 'center'}}>
             {bookList.data.map((book, indx) => {
               return <BookCard title={book.title} author={book.author} img={book.img} 
                 id={book.book_id} kindle={book.kindle_url} kobo={book.kobo_url} nook={book.nook_url} key={indx}/>;

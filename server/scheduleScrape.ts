@@ -8,7 +8,10 @@
 import { AsyncTask } from 'toad-scheduler';
 import db from './models/bookshelfModel';
 import scrapePrice from '../web scrapers/scrapePrice';
+import proxies from '../web scrapers/proxies';  // an array of proxies 
 
+const proxLen = proxies.length; 
+// const proxObj = proxies[Math.floor(Math.random() * proxLen)];  // randomly rotate a proxy on every request 
 
 const scheduleScrape = new AsyncTask('get new prices', 
     () => {
@@ -22,11 +25,13 @@ const scheduleScrape = new AsyncTask('get new prices',
                 for (let i = 0; i < result.rows.length; i++) {
                     // loop thru all books from main table --> destructure --> rename if necessary --> push
                     const { book_id:_id, nook_url:nook, kindle_url: kindle, kobo_url:kobo } = result.rows[i];
-                    // bookStack.push({_id:_id, nookURL:nook, kindleURL:kindle, koboURL:kobo});
+
+                    // MUST STAY INSIDE FOR-LOOP: randomly rotate a proxy on EACH request
+                    const proxObj = proxies[Math.floor(Math.random() * proxLen)];   
 
                     // scrape the web for prices --> update db
                     // SCRAPE NOOK ! 
-                    scrapePrice(nook, 'nook')
+                    scrapePrice(nook, 'nook', proxObj)
                         .then((nookRes) => {
                             return Number(nookRes.trim().replace('$',''));  // gets rid of $, turns into number
                         })
@@ -34,11 +39,11 @@ const scheduleScrape = new AsyncTask('get new prices',
                             const sqlStr = `INSERT INTO nook
                             (time, price, nook_id)
                             VALUES ($1, $2, $3);`;
-                            db.query(sqlStr, [Math.floor(Date.now() / 1000 / 3600), price, _id]);
+                            db.query(sqlStr, [Math.floor(Date.now() / 1000 / 60), price, _id]);
                         });
 
                     // SCRAPE KOBO !    
-                    scrapePrice(kobo, 'kobo')
+                    scrapePrice(kobo, 'kobo', proxObj)
                         .then((koboRes) => {
                             return Number(koboRes.trim().replace('$',''));  // gets rid of $, turns into number
                         })
@@ -46,20 +51,20 @@ const scheduleScrape = new AsyncTask('get new prices',
                             const sqlStr = `INSERT INTO kobo
                             (time, price, kobo_id)
                             VALUES ($1, $2, $3);`;
-                            db.query(sqlStr, [Math.floor(Date.now() / 1000 / 3600), price, _id]);
+                            db.query(sqlStr, [Math.floor(Date.now() / 1000 / 60), price, _id]);
                         });  
                     
-                    // SCRAPE KINDLE !    
-                    scrapePrice(kindle, 'kindle')
-                        .then((kindleRes) => {
-                            return Number(kindleRes.trim().replace('$',''));  // gets rid of $, turns into number
-                        })
-                        .then((price) => {
-                            const sqlStr = `INSERT INTO kindle
-                            (time, price, kindle_id)
-                            VALUES ($1, $2, $3);`;
-                            db.query(sqlStr, [Math.floor(Date.now() / 1000 / 3600), price, _id]);
-                        });                     
+                    // // SCRAPE KINDLE !    
+                    // scrapePrice(kindle, 'kindle', proxObj)
+                    //     .then((kindleRes) => {
+                    //         return Number(kindleRes.trim().replace('$',''));  // gets rid of $, turns into number
+                    //     })
+                    //     .then((price) => {
+                    //         const sqlStr = `INSERT INTO kindle
+                    //         (time, price, kindle_id)
+                    //         VALUES ($1, $2, $3);`;
+                    //         db.query(sqlStr, [Math.floor(Date.now() / 1000 / 60), price, _id]);
+                    //     });                     
                     }
             });
     },
