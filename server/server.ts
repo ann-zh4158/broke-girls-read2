@@ -32,7 +32,7 @@ if(process.env.NODE_ENV === 'production') {
 
 // mount specific sub-routes
 app.use('/books', bookRouter);
-app.use('/price', priceRouter);
+app.use('/prices', priceRouter);
 
 // // route handler to interact with main app 
 // app.get('/home', bookController.getBooks, (_req:Request, res:Response):void => {

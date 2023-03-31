@@ -5,8 +5,8 @@ const priceController = {
     // only has one function, really
     getPrices: async (req:Request, res:Response, next:NextFunction):Promise<unknown> => {
 
-        // req.params will have id of book entry 
-        const id = req.params.id; 
+        // req.query will have id of book entry 
+        const id = req.query.id; 
         let sqlStr = `SELECT time, price 
         FROM kobo 
         WHERE kobo_id = $1;`;

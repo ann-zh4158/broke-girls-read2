@@ -9,13 +9,14 @@ ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
 function TimeSeries() {
 
-    const { id } = useParams(); 
-    const { state } = useLocation();
-    console.log(state);
+    const { id } = useParams();   // id that identifies whose data to get 
+    const { state } = useLocation();  // state coming in from origin of Link
+    console.log('the id is: ', id);
+    console.log('the state is: ', state);
 
     return (
         <div>
-            HELLO! This is the details page for book {id}
+            HELLO! This is the details page for book { id }.
         </div>
     );
 
