@@ -34,14 +34,6 @@ if(process.env.NODE_ENV === 'production') {
 app.use('/books', bookRouter);
 app.use('/prices', priceRouter);
 
-// // route handler to interact with main app 
-// app.get('/home', bookController.getBooks, (_req:Request, res:Response):void => {
-
-//   // gets ALL entries from database
-//   res.status(200).json(res.locals.bookInfo);
-
-// });
-
 // catch-all route handler 
 app.use((_req: Request, res: Response): unknown => res.status(404).send('This is not the page you\'re looking for...'));
 
@@ -61,7 +53,7 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction): unkno
 const scheduler = new ToadScheduler(); 
 
 // create task 
-const job = new SimpleIntervalJob({minutes: 30, runImmediately: true}, 
+const job = new SimpleIntervalJob({minutes: 15, runImmediately: true}, 
     scheduleScrape, {id: 'id_1', preventOverrun: true});
     
 // // start scheduled task ---> nodemon reloading honestly creates some issues   

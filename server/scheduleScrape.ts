@@ -39,7 +39,7 @@ const scheduleScrape = new AsyncTask('get new prices',
                             const sqlStr = `INSERT INTO nook
                             (time, price, nook_id)
                             VALUES ($1, $2, $3);`;
-                            db.query(sqlStr, [Math.floor(Date.now() / 1000 / 60), price, _id]);
+                            db.query(sqlStr, [Math.floor(Date.now() / 1000), price, _id]);
                         });
 
                     // SCRAPE KOBO !    
@@ -51,7 +51,7 @@ const scheduleScrape = new AsyncTask('get new prices',
                             const sqlStr = `INSERT INTO kobo
                             (time, price, kobo_id)
                             VALUES ($1, $2, $3);`;
-                            db.query(sqlStr, [Math.floor(Date.now() / 1000 / 60), price, _id]);
+                            db.query(sqlStr, [Math.floor(Date.now() / 1000), price, _id]);
                         });  
                     
                     // // SCRAPE KINDLE !    
@@ -63,7 +63,7 @@ const scheduleScrape = new AsyncTask('get new prices',
                     //         const sqlStr = `INSERT INTO kindle
                     //         (time, price, kindle_id)
                     //         VALUES ($1, $2, $3);`;
-                    //         db.query(sqlStr, [Math.floor(Date.now() / 1000 / 60), price, _id]);
+                    //         db.query(sqlStr, [Math.floor(Date.now() / 1000), price, _id]);
                     //     });                     
                     }
             });

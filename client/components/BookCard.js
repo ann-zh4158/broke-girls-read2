@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import clientReqs from '../clientReqs';
 

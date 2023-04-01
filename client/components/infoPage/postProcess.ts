@@ -3,9 +3,9 @@ import ReshapedData from './reshapedData';
 import PriceData from './priceData';
 
 function toMinutes(time:string):number {
-    // converts from JS Date.now [ms] to [mins]
-    const now = Date.now(); // save the time stamp
-    return Math.floor((now - Number(time)) / 1000 / 60);
+    // converts time stamps from [s] --> [mins]
+    const now = Math.floor(Date.now() / 1000); // save the time stamp
+    return Math.floor((now - Number(time)) / 60);
 }
 
 function findMinMax(arr:number[]):number[] {
@@ -24,7 +24,7 @@ function findMinMax(arr:number[]):number[] {
 
 }
 
-function postProcess(queriedRes:PriceData, dataSets = 2, timeScl = ''):ReshapedData {
+function postProcess(queriedRes:PriceData, dataSets = 2, timeScl = 'mins'):ReshapedData {
     // post-process the data received from getPrices 
     // parameter dataSets can be made dynamic should the need arise later
         // defaults to 2 for now (we know kobo and nook scrapers are valid)
@@ -40,7 +40,7 @@ function postProcess(queriedRes:PriceData, dataSets = 2, timeScl = ''):ReshapedD
     const koboPrices = []; 
 
     try {
-        for (let i = 0; i < nook.length; i++) {
+        for (let i = 0; i < nook.length; i++) {  
             // these are time series --> their lengths MUST BE THE SAME 
 
             if (timeScl === 'mins') times.push(toMinutes(nook[i].time));

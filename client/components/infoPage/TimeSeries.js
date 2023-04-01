@@ -19,11 +19,11 @@ const options = {
     plugins: {
         title: {
             display: true,
-            text: 'Book Prices [USD] vs Time [t_now - Δ_mins]',
-            position: 'bottom'
+            text: 'Book Prices vs Time',
+            position: 'top'
         },
         legend: {
-            // position: 'top',
+            position: 'bottom',
             display: true
         },
     },
@@ -114,7 +114,7 @@ function TimeSeries() {
             <Container>
                 <Box sx={{justifyContent: 'center', alignItems: 'center'}}>
                     <form className="actualChart"> 
-                        <Line type={options} data={chartData} datasetIdKey={`${id}`}/>
+                        <Line options={options} data={chartData} datasetIdKey={`${id}`}/>
                         <Box m={2} pt={3}>
                             <Grid container spacing={3}>
                                 <Grid item xs={3}>
@@ -149,6 +149,6 @@ function TimeSeries() {
 }
 
 // TEST DATA 
-    // STOPPED COLLECTION AT Date.now = 1680237165329 [ms]
+    // STOPPED COLLECTION AT Date.now = 1680375331.081 [s]
 
 export default TimeSeries;
