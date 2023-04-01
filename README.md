@@ -1,9 +1,14 @@
 # broke-girls-read2
 solo project: e-Book price-tracking application
 
-Functional Features: 
-
 Known Issues: 
+
+1. Web Scraper: 
+      - Bot Detection by Amazon :( 
+        - Solutions: 
+          - Randomized proxy rotations were insufficient, likely due to the fact that the list is a subset of a massive publicly published list. 
+          - Leverage headless browsers like Puppeteer to better mimic human web-browsing
+            - Not yet attempted
 
 Core Tools Highlight: 
 
