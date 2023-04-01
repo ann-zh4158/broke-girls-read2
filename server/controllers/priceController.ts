@@ -9,20 +9,23 @@ const priceController = {
         const id = req.query.id; 
         let sqlStr = `SELECT time, price 
         FROM kobo 
-        WHERE kobo_id = $1;`;
+        WHERE kobo_id = $1
+        ORDER BY time ASC;`;   // return in forward chronological order x_0 < x_1
 
         try {
             const koboHist = await db.query(sqlStr, [id]);
 
-            sqlStr = `SELECT time, price 
-            FROM kindle 
-            WHERE kindle_id = $1;`;
+            // sqlStr = `SELECT time, price 
+            // FROM kindle 
+            // WHERE kindle_id = $1
+            // ORDER BY time ASC;`;
     
             // const kindleHist = await db.query(sqlStr, [id]);
     
-            // sqlStr = `SELECT time, price 
-            // FROM nook 
-            // WHERE nook_id = $1;`;
+            sqlStr = `SELECT time, price 
+            FROM nook 
+            WHERE nook_id = $1
+            ORDER BY time ASC;`;
     
             const nookHist = await db.query(sqlStr, [id]);  
             

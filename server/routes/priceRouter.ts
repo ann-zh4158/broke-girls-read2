@@ -5,7 +5,7 @@ import priceController from '../controllers/priceController';
 
 const priceRouter = express.Router();
 
-priceRouter.get('/?id', priceController.getPrices, (_req:Request, res:Response):void => {
+priceRouter.get('/', priceController.getPrices, (_req:Request, res:Response):void => {
     // gets price history of books
     res.status(200).json(res.locals.priceHistory);
 });

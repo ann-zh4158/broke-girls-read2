@@ -3,6 +3,22 @@ body {
     font-family: 'Michroma', sans-serif;
     background-image: url("https://www.tcd.ie/identity/assets/images/virtual-backgrounds/trinity-virtual-background-10.jpg");
 }
+.chart {
+    text-align: center;
+    align-items: center;
+}
+.actualChart{
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    background-color:rgb(234, 241, 241); 
+}
+canvas{
+    margin: 0 auto;
+    width: 80%;
+    height: 90%;
+}
 .loading {
     font-family: 'Michroma', sans-serif;
     color:rgb(42, 238, 172);
