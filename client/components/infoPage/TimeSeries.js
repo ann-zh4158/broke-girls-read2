@@ -34,7 +34,7 @@ const options = {
                 callback: function (val, indx, ticks) {
                     return '$' + val; 
                 },
-                stepSize: 2
+                stepSize: 2,
             },
             title: {
                 display: true,
@@ -45,7 +45,7 @@ const options = {
             title: {
                 display: true,
                 text: 'Time [t_now - Δ_mins]'
-            }
+            },
         }
     },
 

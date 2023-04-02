@@ -56,21 +56,21 @@ const scheduler = new ToadScheduler();
 const job = new SimpleIntervalJob({minutes: 15, runImmediately: true}, 
     scheduleScrape, {id: 'id_1', preventOverrun: true});
     
-// // start scheduled task ---> nodemon reloading honestly creates some issues   
-// console.log('starting scheduled task ... \n');
-// scheduler.addSimpleIntervalJob(job);
-// console.log(scheduler.getById('id_1').getStatus());       
+// start scheduled task ---> nodemon reloading honestly creates some issues   
+console.log('starting scheduled task ... \n');
+scheduler.addSimpleIntervalJob(job);
+console.log(scheduler.getById('id_1').getStatus());       
 
 // listen for active server port 
 app.listen(PORT, ():void => {
   console.log(`Server listening on port: ${PORT}... \n`);
 }); //listens on port 3000 -> http://localhost:3000/ 
     
-// // stop task on killing server
-// process.on('SIGINT', function() {
-//     scheduler.stop();
-//     console.log('server has been killed... stopping task \n');
-//     console.log(scheduler.getById('id_1').getStatus());
-//     process.exit(0);    
-// });
+// stop task on killing server
+process.on('SIGINT', function() {
+    scheduler.stop();
+    console.log('server has been killed... stopping task \n');
+    console.log(scheduler.getById('id_1').getStatus());
+    process.exit(0);    
+});
 
