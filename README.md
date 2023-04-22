@@ -9,6 +9,9 @@ Known Issues:
           - Randomized proxy rotations were insufficient, likely due to the fact that the list is a subset of a massive publicly published list. 
           - Leverage headless browsers like Puppeteer to better mimic human web-browsing
             - Not yet attempted
+            
+2. Production Mode:
+      - Breaks and is currently unresolved.
 
 Core Tools Highlight: 
 
