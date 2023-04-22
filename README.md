@@ -18,7 +18,7 @@ Core Tools Highlight:
 Front-End:
 1. JavaScript / TypeScript
 2. CSS / HTML
-3. Libraries:
+3. Frameworks & Libraries:
       - React 
         - React-Query
         - React-Router
@@ -26,10 +26,10 @@ Front-End:
       - Chart.js
       - Axios
 
-Back-End: 
+Back-End: Node.js
 1. TypeScript
 2. SQL
-3. Libraries
+3. Frameworks & Libraries
     - Express.js
     - cheerio.js 
     - Axios 
