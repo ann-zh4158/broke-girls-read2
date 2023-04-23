@@ -36,5 +36,5 @@ Back-End: Node.js
 4. Database(s)
     - PostgreSQL    
 
-Module Bundler: Webpack 
+Build Tools: Webpack 
 
