@@ -12,3 +12,6 @@ build/*.js
 # any zip files
 *.zip
 
+# env vars
+.env 
+

@@ -6,7 +6,7 @@ const { Pool } = pkg;
 import { builtins, getTypeParser } from 'pg-types';
 // console.log({ builtins, getTypeParser });
 
-const PG_URI = 'postgres://nhsptzfu:Y4wop8yC3EOkr_Eg6sL3QR6R0htjsfsl@mahmud.db.elephantsql.com/nhsptzfu';
+const PG_URI = process.env.POSTGRES_URI;
 
 // create a new pool here using the connection string above
 const pool = new Pool({
